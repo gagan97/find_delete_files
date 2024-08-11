@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>File Manager</title>
+
+    <style>
+
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+
+        h1 { color: #333; }
+
+        ul { list-style-type: none; padding: 0; }
+
+        li { margin-bottom: 5px; }
+
+        .button { display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+
+        form { margin-bottom: 20px; }
+
+        label { display: block; margin-bottom: 5px; }
+
+        input[type="text"], input[type="submit"] { margin-bottom: 10px; }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>File Manager</h1>
+
+    {% if action == 'review' %}
+
+        <h2>Files found:</h2>
+
+        <ul>
+
+            {% for file in files %}
+
+                <li>{{ file }}</li>
+
+            {% endfor %}
+
+        </ul>
+
+        <form method="post">
+
+            <input type="hidden" name="action" value="delete">
+
+            <input type="submit" value="Delete These Files" class="button">
+
+        </form>
+
+    {% elif action == 'deleted' %}
+
+        <h2>Deleted files:</h2>
+
+        <ul>
+
+            {% for file in deleted_files %}
+
+                <li>{{ file }}</li>
+
+            {% endfor %}
+
+        </ul>
+
+    {% else %}
+
+        <form method="post">
+
+            <input type="hidden" name="action" value="find">
+
+            <label for="directory">Directory to search:</label>
+
+            <input type="text" id="directory" name="directory" value="." required>
+
+            
+
+            <label for="file_types">File types (space-separated, e.g., 'txt pdf doc'):</label>
+
+            <input type="text" id="file_types" name="file_types">
+
+            
+
+            <label for="search_string">String to search for in filename:</label>
+
+            <input type="text" id="search_string" name="search_string" required>
+
+            
+
+            <label for="exact_match">
+
+                <input type="checkbox" id="exact_match" name="exact_match">
+
+                Exact match
+
+            </label>
+
+            
+
+            <input type="submit" value="Find Files" class="button">
+
+        </form>
+
+    {% endif %}
+
+</body>
+
+</html>
